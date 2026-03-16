@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Wallet - Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-content">
+                <div class="header-left">
+                    <div class="header-logo">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M21 4H3C1.89543 4 1 4.89543 1 6V18C1 19.1046 1.89543 20 3 20H21C22.1046 20 23 19.1046 23 18V6C23 4.89543 22.1046 4 21 4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M1 10H23" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <span class="header-title">Digital Wallet</span>
+                </div>
+                <button class="logout-btn" id="logout-btn" data-testid="logout-btn">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M16 17L21 12L16 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M21 12H9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <!-- Balance Card -->
+            <section class="balance-section">
+                <div class="balance-card" data-testid="balance-card">
+                    <div class="balance-header">
+                        <span class="balance-label">Account Balance</span>
+                        <button class="refresh-btn" id="refresh-balance-btn" data-testid="refresh-balance-btn">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M23 4V10H17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M1 20V14H7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M3.51 9C4.01717 7.56678 4.87913 6.28518 6.01547 5.27542C7.1518 4.26566 8.52547 3.55984 10.0083 3.22426C11.4911 2.88868 13.0348 2.93434 14.4952 3.35677C15.9556 3.77921 17.2853 4.56471 18.36 5.64L23 10M1 14L5.64 18.36C6.71475 19.4353 8.04437 20.2208 9.50481 20.6432C10.9652 21.0657 12.5089 21.1113 13.9917 20.7757C15.4745 20.4402 16.8482 19.7343 17.9845 18.7246C19.1209 17.7148 19.9828 16.4332 20.49 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="balance-amount" id="balance-amount" data-testid="balance-amount">
+                        <span class="currency">$</span>
+                        <span class="amount">0.00</span>
+                    </div>
+                    <div class="balance-footer">
+                        <span class="balance-status">Available</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Action Buttons -->
+            <section class="actions-section">
+                <div class="actions-grid">
+                    <button class="action-card" id="deposit-btn" data-testid="deposit-action-btn">
+                        <div class="action-icon deposit-icon">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 5V19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <span class="action-label">Deposit</span>
+                    </button>
+
+                    <button class="action-card" id="transfer-btn" data-testid="transfer-action-btn">
+                        <div class="action-icon transfer-icon">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M17 1L21 5L17 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M3 11V9C3 7.93913 3.42143 6.92172 4.17157 6.17157C4.92172 5.42143 5.93913 5 7 5H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M7 23L3 19L7 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M21 13V15C21 16.0609 20.5786 17.0783 19.8284 17.8284C19.0783 18.5786 18.0609 19 17 19H3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <span class="action-label">Transfer</span>
+                    </button>
+
+                    <button class="action-card" id="transactions-btn" data-testid="transactions-action-btn">
+                        <div class="action-icon history-icon">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 8V12L15 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                        </div>
+                        <span class="action-label">History</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Transactions Section -->
+            <section class="transactions-section" id="transactions-section" data-testid="transactions-section">
+                <div class="section-header">
+                    <h2 class="section-title">Recent Transactions</h2>
+                    <button class="view-all-btn" id="view-all-btn" data-testid="view-all-transactions-btn">View All</button>
+                </div>
+                <div class="transactions-list" id="transactions-list" data-testid="transactions-list">
+                    <div class="empty-state" id="empty-transactions" data-testid="empty-transactions">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 5H7C6.46957 5 5.96086 5.21071 5.58579 5.58579C5.21071 5.96086 5 6.46957 5 7V19C5 19.5304 5.21071 20.0391 5.58579 20.4142C5.96086 20.7893 6.46957 21 7 21H17C17.5304 21 18.0391 20.7893 18.4142 20.4142C18.7893 20.0391 19 19.5304 19 19V7C19 6.46957 18.7893 5.96086 18.4142 5.58579C18.0391 5.21071 17.5304 5 17 5H15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M9 5C9 4.46957 9.21071 3.96086 9.58579 3.58579C9.96086 3.21071 10.4696 3 11 3H13C13.5304 3 14.0391 3.21071 14.4142 3.58579C14.7893 3.96086 15 4.46957 15 5C15 5.53043 14.7893 6.03914 14.4142 6.41421C14.0391 6.78929 13.5304 7 13 7H11C10.4696 7 9.96086 6.78929 9.58579 6.41421C9.21071 6.03914 9 5.53043 9 5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <p>No transactions yet</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Deposit Modal -->
+        <div class="modal-overlay" id="deposit-modal" data-testid="deposit-modal">
+            <div class="modal">
+                <div class="modal-header">
+                    <h3 class="modal-title">Deposit Funds</h3>
+                    <button class="modal-close" data-modal="deposit-modal" data-testid="deposit-modal-close">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                </div>
+                <form id="deposit-form" class="modal-form">
+                    <div class="form-group">
+                        <label for="deposit-amount">Amount</label>
+                        <div class="input-with-prefix">
+                            <span class="input-prefix">$</span>
+                            <input 
+                                type="number" 
+                                id="deposit-amount" 
+                                name="amount" 
+                                placeholder="0.00"
+                                min="0.01"
+                                step="0.01"
+                                required
+                                data-testid="deposit-amount-input"
+                            >
+                        </div>
+                    </div>
+                    <div class="quick-amounts">
+                        <button type="button" class="quick-amount-btn" data-amount="50">$50</button>
+                        <button type="button" class="quick-amount-btn" data-amount="100">$100</button>
+                        <button type="button" class="quick-amount-btn" data-amount="200">$200</button>
+                        <button type="button" class="quick-amount-btn" data-amount="500">$500</button>
+                    </div>
+                    <div id="deposit-error" class="error-message" data-testid="deposit-error-message"></div>
+                    <div id="deposit-success" class="success-message" data-testid="deposit-success-message"></div>
+                    <button type="submit" class="btn btn-primary" data-testid="deposit-submit-btn">
+                        <span class="btn-text">Deposit</span>
+                        <span class="btn-loader"></span>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Transfer Modal -->
+        <div class="modal-overlay" id="transfer-modal" data-testid="transfer-modal">
+            <div class="modal">
+                <div class="modal-header">
+                    <h3 class="modal-title">Transfer Funds</h3>
+                    <button class="modal-close" data-modal="transfer-modal" data-testid="transfer-modal-close">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                </div>
+                <form id="transfer-form" class="modal-form">
+                    <div class="form-group">
+                        <label for="recipient-id">Recipient User ID</label>
+                        <input 
+                            type="text" 
+                            id="recipient-id" 
+                            name="toUserId" 
+                            placeholder="Enter recipient's user ID"
+                            required
+                            data-testid="transfer-recipient-input"
+                        >
+                    </div>
+                    <div class="form-group">
+                        <label for="transfer-amount">Amount</label>
+                        <div class="input-with-prefix">
+                            <span class="input-prefix">$</span>
+                            <input 
+                                type="number" 
+                                id="transfer-amount" 
+                                name="amount" 
+                                placeholder="0.00"
+                                min="0.01"
+                                step="0.01"
+                                required
+                                data-testid="transfer-amount-input"
+                            >
+                        </div>
+                    </div>
+                    <div id="transfer-error" class="error-message" data-testid="transfer-error-message"></div>
+                    <div id="transfer-success" class="success-message" data-testid="transfer-success-message"></div>
+                    <button type="submit" class="btn btn-primary" data-testid="transfer-submit-btn">
+                        <span class="btn-text">Transfer</span>
+                        <span class="btn-loader"></span>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Transactions Modal -->
+        <div class="modal-overlay" id="transactions-modal" data-testid="transactions-modal">
+            <div class="modal modal-large">
+                <div class="modal-header">
+                    <h3 class="modal-title">Transaction History</h3>
+                    <button class="modal-close" data-modal="transactions-modal" data-testid="transactions-modal-close">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="transactions-list full-list" id="all-transactions-list" data-testid="all-transactions-list">
+                        <div class="empty-state">
+                            <p>Loading transactions...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Toast Notification -->
+        <div class="toast" id="toast" data-testid="toast-notification">
+            <div class="toast-content">
+                <span class="toast-icon"></span>
+                <span class="toast-message" id="toast-message"></span>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
