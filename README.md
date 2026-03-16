@@ -14,6 +14,8 @@ https://payment-wallet-api.onrender.com
 
 You can test the API using tools like Thunder Client, Postman, or any REST client.
 
+https://payment-wallet-api.vercel.app/index.html
+
 ---
 
 # 🚀 Features
