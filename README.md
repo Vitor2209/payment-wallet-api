@@ -6,52 +6,66 @@ This project was built to demonstrate **backend architecture, authentication, fi
 
 ---
 
+🌍 Live API
+
+🚀 Backend deployed online:
+
+https://payment-wallet-api.onrender.com
+
+You can test the API using tools like Thunder Client, Postman, or any REST client.
+
+---
+
 # 🚀 Features
 
-### Authentication
-- User registration
-- Secure password hashing with bcrypt
-- JWT authentication
+## 🔐 Authentication
 
-### Wallet System
-- Automatic wallet creation when a user registers
-- Check wallet balance
-- Deposit money into wallet
+* User registration
+* Secure password hashing with **bcrypt**
+* JWT authentication
 
-### Transfers
-- Transfer funds between users
-- Prevent self-transfers
-- Prevent transfers with insufficient balance
-- Database **atomic transactions**
+## 👛 Wallet System
 
-### Security
-- JWT protected routes
-- Middleware authentication
-- Input validation checks
+* Automatic wallet creation when a user registers
+* Check wallet balance
+* Deposit money into wallet
+
+## 💸 Transfers
+
+* Transfer funds between users
+* Prevent self-transfers
+* Prevent transfers with insufficient balance
+* Database **atomic transactions**
+
+## 🛡️ Security
+
+* JWT protected routes
+* Middleware authentication
+* Input validation checks
 
 ---
 
 # 🛠️ Tech Stack
 
-Backend:
+## ⚙️ Backend
 
-- Node.js
-- Express
-- Prisma ORM
-- PostgreSQL (Neon)
-- JSON Web Token (JWT)
-- bcrypt
+* Node.js
+* Express
+* Prisma ORM
+* PostgreSQL (Neon)
+* JSON Web Token (JWT)
+* bcrypt
 
-Development Tools:
+## 🧪 Development Tools
 
-- Thunder Client
-- Prisma Studio
+* Thunder Client
+* Prisma Studio
 
 ---
 
 # 📂 Project Structure
 
-
+```id="t0oazf"
 src
 ├── controllers
 ├── services
@@ -59,153 +73,188 @@ src
 ├── middlewares
 ├── lib
 └── utils
+```
 
+### 🏗 Architecture Pattern
 
-Architecture pattern:
-
-
+```
 Route → Controller → Service → Database
-
+```
 
 ---
 
 # 📌 API Endpoints
 
-## Authentication
+## 🔐 Authentication
 
 ### Register
 
-
+```
 POST /auth/register
-
+```
 
 Body:
 
-```json
+```json id="p1qlu3"
 {
-"name": "Vitor",
-"email": "vitor@email.com",
-"password": "123456"
+  "name": "Vitor",
+  "email": "vitor@email.com",
+  "password": "123456"
 }
-Login
+```
 
+---
+
+### Login
+
+```
 POST /auth/login
-
+```
 
 Response:
 
+```json id="i5jznl"
 {
-"token": "JWT_TOKEN"
+  "token": "JWT_TOKEN"
 }
-Wallet
-Get Balance
+```
 
+---
+
+# 👛 Wallet
+
+### Get Balance
+
+```
 GET /wallet/balance
-
+```
 
 Header:
 
-
+```
 Authorization: Bearer TOKEN
-
+```
 
 Response:
 
+```json id="xw1m6u"
 {
-"balance": 100
+  "balance": 100
 }
-Deposit
+```
 
+---
+
+### Deposit
+
+```
 POST /wallet/deposit
-
+```
 
 Body:
 
+```json id="2teix7"
 {
-"amount": 100
+  "amount": 100
 }
-Transfers
-Transfer Funds
+```
 
+---
+
+# 💸 Transfers
+
+### Transfer Funds
+
+```
 POST /wallet/transfer
-
+```
 
 Body:
 
+```json id="ugm8n3"
 {
-"toUserId": "USER_ID",
-"amount": 50
+  "toUserId": "USER_ID",
+  "amount": 50
 }
-🗄️ Database Schema
+```
 
-Models:
+---
 
+# 🗄️ Database Schema
 
-User
-Wallet
-Transaction
+### Models
 
+* User
+* Wallet
+* Transaction
 
-Relationships:
+### Relationships
 
-
+```
 User → Wallet (1:1)
 Wallet → Transactions
+```
 
-⚙️ Environment Variables
+---
 
-Create a .env file:
+# ⚙️ Environment Variables
 
+Create a `.env` file:
 
+```id="c89grs"
 DATABASE_URL="your_database_url"
 JWT_SECRET="your_secret_key"
 PORT=3000
+```
 
-▶️ Running the Project
+---
 
-Install dependencies:
+# ▶️ Running the Project
 
+### Install dependencies
 
+```
 npm install
+```
 
+### Run the server
 
-Run the server:
-
-
+```
 npm run dev
+```
 
+### Server runs on
 
-Server runs on:
-
-
+```
 http://localhost:3000
+```
 
-🔮 Future Improvements
+---
+
+# 🔮 Future Improvements
 
 Planned features for next versions:
 
-Transaction history endpoint
+* Transaction history endpoint
+* API documentation with Swagger
+* Request validation with Zod
+* Global error handler
+* Rate limiting
+* Automated tests (Jest + Supertest)
+* Docker support
+* Logging system
 
-API documentation with Swagger
+---
 
-Request validation with Zod
-
-Global error handler
-
-Rate limiting
-
-Automated tests (Jest + Supertest)
-
-Docker support
-
-Logging system
-
-📜 License
+# 📜 License
 
 MIT License
 
-👨‍💻 Author
+---
 
-Developed by Vitor Dutra Melo
+# 👨‍💻 Author
+
+Developed by **Vitor Dutra Melo**
 
 Backend Developer
+
