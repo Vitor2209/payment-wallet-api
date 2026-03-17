@@ -1,5 +1,6 @@
 import prisma from "../lib/prisma.js"
 
+// 🔹 Garante que o usuário sempre tenha wallet
 export const getOrCreateWallet = async (userId) => {
 
   let wallet = await prisma.wallet.findUnique({
@@ -20,6 +21,7 @@ export const getOrCreateWallet = async (userId) => {
   return wallet
 }
 
+// 🔹 Ver saldo
 export const getBalance = async (userId) => {
 
   const wallet = await getOrCreateWallet(userId)
@@ -27,6 +29,7 @@ export const getBalance = async (userId) => {
   return wallet.balance
 }
 
+// 🔹 Depositar dinheiro
 export const deposit = async (userId, amount) => {
 
   if (amount <= 0) {
@@ -35,30 +38,75 @@ export const deposit = async (userId, amount) => {
 
   const wallet = await getOrCreateWallet(userId)
 
+  const newBalance = wallet.balance + amount
+
+  // 🔥 LIMITE
+  if (newBalance > 1000000) {
+    throw new Error("Maximum balance limit reached (1,000,000)")
+  }
+
   const updatedWallet = await prisma.wallet.update({
     where: {
       id: wallet.id
     },
     data: {
-      balance: wallet.balance + amount
+      balance: newBalance
     }
   })
 
   return updatedWallet.balance
 }
 
-export const transfer = async (fromUserId, toUserId, amount) => {
+// 🔹 Transferência por EMAIL
+export const transfer = async (fromUserId, toEmail, amount) => {
+
+  console.log("===== DEBUG TRANSFER =====")
+  console.log("FROM USER ID:", fromUserId)
+  console.log("TO EMAIL:", toEmail)
+  console.log("AMOUNT:", amount)
 
   if (amount <= 0) {
     throw new Error("Amount must be greater than zero")
   }
 
+  // 🔍 Buscar usuário pelo email
+  const toUser = await prisma.user.findUnique({
+    where: { email: toEmail }
+  })
+
+  console.log("FOUND USER:", toUser)
+
+  if (!toUser) {
+    throw new Error("Recipient not found")
+  }
+
+  const toUserId = toUser.id
+
+  console.log("TO USER ID:", toUserId)
+
   if (fromUserId === toUserId) {
     throw new Error("Cannot transfer to yourself")
   }
 
-  const fromWallet = await getOrCreateWallet(fromUserId)
-  const toWallet = await getOrCreateWallet(toUserId)
+  // 🔍 Buscar wallets (SEM criar automaticamente)
+  const fromWallet = await prisma.wallet.findFirst({
+    where: { userId: fromUserId }
+  })
+
+  const toWallet = await prisma.wallet.findFirst({
+    where: { userId: toUserId }
+  })
+
+  console.log("FROM WALLET:", fromWallet)
+  console.log("TO WALLET:", toWallet)
+
+  if (!fromWallet) {
+    throw new Error("Sender wallet not found")
+  }
+
+  if (!toWallet) {
+    throw new Error("Receiver wallet not found")
+  }
 
   if (fromWallet.balance < amount) {
     throw new Error("Insufficient balance")

@@ -266,10 +266,10 @@ async function depositFunds(amount) {
 /**
  * Transfer funds
  */
-async function transferFunds(toUserId, amount) {
+async function transferFunds(toEmail, amount) {
     return apiRequest(CONFIG.ENDPOINTS.TRANSFER, {
         method: 'POST',
-        body: JSON.stringify({ toUserId, amount: parseFloat(amount) })
+        body: JSON.stringify({ toEmail, amount: parseFloat(amount) })
     });
 }
 

@@ -51,9 +51,9 @@ export const transferMoney = async (req, res) => {
   try {
 
     const fromUserId = req.userId
-    const { toUserId, amount } = req.body
+    const { toEmail, amount } = req.body
 
-    const result = await transfer(fromUserId, toUserId, amount)
+    const result = await transfer(fromUserId, toEmail, amount)
 
     res.json({
       message: "Transfer successful",
