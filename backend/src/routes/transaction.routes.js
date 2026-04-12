@@ -1,9 +1,9 @@
-import express from "express"
-import { listTransactions } from "../controllers/transaction.controller.js"
-import { authMiddleware } from "../middlewares/auth.middleware.js"
+import express from "express";
+import { getTransactions } from "../controllers/transaction.controller.js";
+import { authMiddleware } from "../middlewares/auth.middleware.js";
 
-const router = express.Router()
+const router = express.Router();
 
-router.get("/", authMiddleware, listTransactions)
+router.get("/", authMiddleware, getTransactions);
 
-export default router
+export default router;

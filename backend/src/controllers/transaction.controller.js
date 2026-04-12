@@ -1,21 +1,32 @@
-import { getUserTransactions } from "../services/transaction.service.js"
+import prisma from "../lib/prisma.js";
 
-export const listTransactions = async (req, res) => {
-
+export const getTransactions = async (req, res, next) => {
   try {
+    const userId = req.userId;
 
-    const userId = req.userId
+    const transactions = await prisma.transaction.findMany({
+      where: {
+        OR: [
+          {
+            fromWallet: {
+              userId: userId
+            }
+          },
+          {
+            toWallet: {
+              userId: userId
+            }
+          }
+        ]
+      },
+      orderBy: {
+        createdAt: "desc"
+      }
+    });
 
-    const transactions = await getUserTransactions(userId)
-
-    res.json(transactions)
+    res.json(transactions);
 
   } catch (error) {
-
-    res.status(400).json({
-      message: error.message
-    })
-
+    next(error);
   }
-
-}
+};
