@@ -1,72 +1,67 @@
-import { getBalance, deposit, transfer } from "../services/wallet.service.js"
+import { getBalance, deposit, transfer } from "../services/wallet.service.js";
+import { depositSchema, transferSchema } from "../validations/wallet.validation.js";
+import { AppError } from "../utils/AppError.js";
 
-export const balance = async (req, res) => {
-
+// ============================
+// GET BALANCE
+// ============================
+export const balance = async (req, res, next) => {
   try {
+    const walletBalance = await getBalance(req.userId);
 
-    const userId = req.userId
-
-    const walletBalance = await getBalance(userId)
-
-    res.json({
-      balance: walletBalance
-    })
-
+    res.json({ balance: walletBalance });
   } catch (error) {
-
-    res.status(400).json({
-      message: error.message
-    })
-
+    next(error);
   }
+};
 
-}
-
-export const depositMoney = async (req, res) => {
-
+// ============================
+// DEPOSIT
+// ============================
+export const depositMoney = async (req, res, next) => {
   try {
+    const parsed = depositSchema.safeParse(req.body);
 
-    const userId = req.userId
-    const { amount } = req.body
+    if (!parsed.success) {
+      throw new AppError(parsed.error.errors[0].message, 400);
+    }
 
-    const newBalance = await deposit(userId, amount)
+    const { amount } = parsed.data;
+
+    const newBalance = await deposit(req.userId, amount);
 
     res.json({
       message: "Deposit successful",
       balance: newBalance
-    })
+    });
 
   } catch (error) {
-
-    res.status(400).json({
-      message: error.message
-    })
-
+    next(error);
   }
+};
 
-}
-
-export const transferMoney = async (req, res) => {
-
+// ============================
+// TRANSFER
+// ============================
+export const transferMoney = async (req, res, next) => {
   try {
+    const parsed = transferSchema.safeParse(req.body);
 
-    const fromUserId = req.userId
-    const { toEmail, amount } = req.body
+    if (!parsed.success) {
+      throw new AppError(parsed.error.errors[0].message, 400);
+    }
 
-    const result = await transfer(fromUserId, toEmail, amount)
+    const { toEmail, amount } = parsed.data;
+
+    const result = await transfer(req.userId, toEmail, amount);
 
     res.json({
       message: "Transfer successful",
       senderBalance: result.senderBalance,
       transaction: result.transaction
-    })
+    });
 
   } catch (error) {
-
-    res.status(400).json({
-      message: error.message
-    })
-
+    next(error);
   }
-
-}
+};

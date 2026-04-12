@@ -1,83 +1,91 @@
 # 💳 Payment & Wallet API
 
-A RESTful API that simulates a **digital wallet system**, allowing users to create accounts, manage balances, deposit money, and transfer funds between users.
+A full-stack **Digital Wallet API** that simulates a real-world financial system, allowing users to register, authenticate, manage balances, deposit funds, and transfer money securely between accounts.
 
-This project was built to demonstrate **backend architecture, authentication, financial transactions, and database management** using modern technologies.
+🚀 This project was built to demonstrate **backend engineering skills**, including authentication, transactional logic, validation, and production-ready architecture.
 
 ---
 
-🌍 Live API
+## 🌐 Live Demo
 
-🚀 Backend deployed online:
-
+🔗 API Base URL:
 https://payment-wallet-api.onrender.com
 
-You can test the API using tools like Thunder Client, Postman, or any REST client.
-
-https://payment-wallet-api.vercel.app/index.html
+📄 API Documentation (Swagger):
+https://payment-wallet-api.onrender.com/docs
 
 ---
 
-# 🚀 Features
+## ✨ Features
 
-## 🔐 Authentication
+### 🔐 Authentication
 
 * User registration
-* Secure password hashing with **bcrypt**
-* JWT authentication
+* Secure password hashing with bcrypt
+* JWT-based authentication
 
-## 👛 Wallet System
+### 💰 Wallet System
 
-* Automatic wallet creation when a user registers
-* Check wallet balance
-* Deposit money into wallet
+* Automatic wallet creation on registration
+* Real-time balance tracking
+* Deposit funds with validation and limits
 
-## 💸 Transfers
+### 🔁 Transfers
 
-* Transfer funds between users
+* Transfer money using **email (unique identifier)**
 * Prevent self-transfers
-* Prevent transfers with insufficient balance
-* Database **atomic transactions**
+* Prevent insufficient balance transfers
+* Enforced maximum balance limit (1,000,000)
+* Atomic database transactions (Prisma)
 
-## 🛡️ Security
+### 🛡️ Security & Validation
 
-* JWT protected routes
-* Middleware authentication
-* Input validation checks
+* Input validation with **Zod**
+* Global error handling middleware
+* Protected routes using JWT
+
+### 📄 API Documentation
+
+* Interactive API documentation with **Swagger UI**
+* Test endpoints directly from the browser
 
 ---
 
-# 🛠️ Tech Stack
+## 🛠️ Tech Stack
 
-## ⚙️ Backend
+### Backend
 
 * Node.js
 * Express
 * Prisma ORM
 * PostgreSQL (Neon)
-* JSON Web Token (JWT)
-* bcrypt
+* JWT (Authentication)
+* bcrypt (Password hashing)
+* Zod (Validation)
 
-## 🧪 Development Tools
+### Tools & Dev
 
-* Thunder Client
-* Prisma Studio
+* Swagger UI (API documentation)
+* Thunder Client / Postman
+* Git & GitHub
 
 ---
 
-# 📂 Project Structure
+## 📂 Project Structure
 
-```id="t0oazf"
-src
-├── controllers
-├── services
-├── routes
-├── middlewares
-├── lib
-└── utils
+```
+src/
+├── controllers/
+├── services/
+├── routes/
+├── middlewares/
+├── validations/
+├── utils/
+├── config/
+└── lib/
 ```
 
-### 🏗 Architecture Pattern
+### 🧠 Architecture
 
 ```
 Route → Controller → Service → Database
@@ -85,19 +93,17 @@ Route → Controller → Service → Database
 
 ---
 
-# 📌 API Endpoints
+## 📌 API Endpoints
 
-## 🔐 Authentication
+### 🔐 Auth
 
-### Register
+#### Register
 
 ```
 POST /auth/register
 ```
 
-Body:
-
-```json id="p1qlu3"
+```json
 {
   "name": "Vitor",
   "email": "vitor@email.com",
@@ -107,55 +113,39 @@ Body:
 
 ---
 
-### Login
+#### Login
 
 ```
 POST /auth/login
 ```
 
-Response:
-
-```json id="i5jznl"
+```json
 {
-  "token": "JWT_TOKEN"
+  "email": "vitor@email.com",
+  "password": "123456"
 }
 ```
 
 ---
 
-# 👛 Wallet
+### 💰 Wallet
 
-### Get Balance
+#### Get Balance
 
 ```
 GET /wallet/balance
-```
-
-Header:
-
-```
 Authorization: Bearer TOKEN
-```
-
-Response:
-
-```json id="xw1m6u"
-{
-  "balance": 100
-}
 ```
 
 ---
 
-### Deposit
+#### Deposit
 
 ```
 POST /wallet/deposit
 ```
 
-Body:
-
-```json id="2teix7"
+```json
 {
   "amount": 100
 }
@@ -163,69 +153,57 @@ Body:
 
 ---
 
-# 💸 Transfers
-
-### Transfer Funds
+#### Transfer
 
 ```
 POST /wallet/transfer
 ```
 
-Body:
-
-```json id="ugm8n3"
+```json
 {
-  "toUserId": "USER_ID",
+  "toEmail": "user@email.com",
   "amount": 50
 }
 ```
 
 ---
 
-# 🗄️ Database Schema
+## 🗄️ Database Schema
 
-### Models
+### Models:
 
 * User
 * Wallet
 * Transaction
 
-### Relationships
+### Relationships:
 
-```
-User → Wallet (1:1)
-Wallet → Transactions
-```
+* User → Wallet (1:1)
+* Wallet → Transactions (1:N)
 
 ---
 
-# ⚙️ Environment Variables
+## ⚙️ Environment Variables
 
 Create a `.env` file:
 
-```id="c89grs"
-DATABASE_URL="your_database_url"
-JWT_SECRET="your_secret_key"
+```
+DATABASE_URL=your_database_url
+JWT_SECRET=your_secret_key
 PORT=3000
 ```
 
 ---
 
-# ▶️ Running the Project
+## ▶️ Running Locally
 
-### Install dependencies
-
-```
+```bash
 npm install
-```
-
-### Run the server
-
-```
+npx prisma migrate dev
 npm run dev
 ```
 
-### Server runs on
+Server runs on:
 
 ```
 http://localhost:3000
@@ -233,30 +211,48 @@ http://localhost:3000
 
 ---
 
-# 🔮 Future Improvements
+## 🧪 API Testing
 
-Planned features for next versions:
+Access Swagger:
 
-* Transaction history endpoint
-* API documentation with Swagger
-* Request validation with Zod
-* Global error handler
-* Rate limiting
-* Automated tests (Jest + Supertest)
-* Docker support
-* Logging system
+```
+http://localhost:3000/docs
+```
 
 ---
 
-# 📜 License
+## 🚀 Future Improvements
+
+* Transaction filtering & pagination
+* Rate limiting
+* Unit & integration tests (Jest)
+* Docker support
+* Logging system
+* Email verification system
+
+---
+
+## 📜 License
 
 MIT License
 
 ---
 
-# 👨‍💻 Author
+## 👨‍💻 Author
 
-Developed by **Vitor Dutra Melo**
-
+**Vitor Dutra Melo**
 Backend Developer
+
+📍 London, UK
+📧 [vitordutra1125@gmail.com](mailto:vitordutra1125@gmail.com)
+
+---
+
+## 💡 About This Project
+
+This project was developed as part of my journey to becoming a professional backend developer, focusing on building **real-world systems with production-level practices**.
+
+---
+
+⭐ If you found this project interesting, feel free to give it a star!
 
